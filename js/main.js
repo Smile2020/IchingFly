@@ -34,6 +34,11 @@ export default class Main {
             this.bg.update()
         }
         if (databus.gamestate === GameState.MainMenu) {
+            if (!this.hasEventBind) {
+                this.hasEventBind = true
+                this.touchHandler = this.touchStartButtonHandler.bind(this)
+                canvas.addEventListener('touchstart', this.touchHandler)
+            }
         }
         if (databus.gamestate === GameState.GameOver) {
         }
@@ -59,5 +64,14 @@ export default class Main {
             this.bindLoop,
             canvas
         )
+    }
+
+    touchStartButtonHandler(e) {
+        e.preventDefault()
+        const x = e.touches[0].clientX
+        const y = e.touches[0].clientY
+        if (this.mainmenu.checkIsFingerOnButton(x, y)) {
+            databus.gamestate = GameState.GamePlaying
+        }
     }
 }

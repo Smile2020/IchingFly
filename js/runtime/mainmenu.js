@@ -23,4 +23,8 @@ export default class MainMenu {
         // draw start button
         this.startBtn.drawToCanvas(ctx)
     }
+
+    checkIsFingerOnButton(x, y) {
+        return this.startBtn.isClicked(x, y)
+    }
 }
